@@ -1,4 +1,3 @@
-// const { getListOfContacts } = require("../../model/contactsOperations/index");
 const { contactsModel } = require("../../model/index");
 
 const getAllCtrl = async (req, res, next) => {

@@ -1,4 +1,3 @@
-// const { deleteContactById } = require("../../model/contactsOperations/index");
 const { contactsModel } = require("../../model/index");
 
 const deleteContactCtrl = async (req, res, next) => {

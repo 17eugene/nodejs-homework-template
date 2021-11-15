@@ -8,8 +8,9 @@ const DB_HOST = process.env.DB_HOST;
 mongoose
   .connect(DB_HOST)
   .then(() => {
-    app.listen(PORT);
-    console.log(`Server run on port ${PORT}`);
+    app.listen(PORT, () => {
+      console.log("Database connection successful");
+    });
   })
   .catch((error) => {
     console.log(error.message);
