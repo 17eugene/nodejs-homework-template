@@ -1,0 +1,30 @@
+const { Schema, model } = require("mongoose");
+
+const contactsSchema = Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Set name for contact"],
+    },
+
+    email: {
+      type: String,
+      required: true,
+    },
+
+    phone: {
+      type: String,
+      required: true,
+    },
+
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { versionKey: false, timestamps: true }
+);
+
+const ContactsModel = model("contact", contactsSchema);
+
+module.exports = ContactsModel;

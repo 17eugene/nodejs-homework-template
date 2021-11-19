@@ -1,6 +1,6 @@
 const { contactsModel } = require("../../model/index");
 
-const updateContactCtrl = async (req, res, next) => {
+const updateStatusCtrl = async (req, res, next) => {
   try {
     const id = req.params.contactId;
 
@@ -9,7 +9,7 @@ const updateContactCtrl = async (req, res, next) => {
     });
 
     if (!updatedContact) {
-      const error = new Error("Not found");
+      const error = new Error("missing field 'favorite'");
       error.status = 404;
       throw error;
     }
@@ -26,4 +26,4 @@ const updateContactCtrl = async (req, res, next) => {
   }
 };
 
-module.exports = updateContactCtrl;
+module.exports = updateStatusCtrl;
