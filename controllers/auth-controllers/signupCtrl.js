@@ -1,5 +1,3 @@
-const bcrypt = require("bcryptjs");
-
 const { usersModel } = require("../../model/index");
 
 const signupCtrl = async (req, res, next) => {
@@ -13,9 +11,17 @@ const signupCtrl = async (req, res, next) => {
       throw error;
     }
 
-    const salt = bcrypt.genSaltSync(10);
-    const hasedPw = bcrypt.hashSync(password, salt);
-    const newUser = await usersModel.create({ email, password: hasedPw });
+    const newUser = new usersModel({ email });
+    newUser.setPassword(password);
+    newUser.save();
+
+    //===================2ой вариант сохранения
+    // const salt = bcrypt.genSaltSync(10);
+    // const hasedPw = bcrypt.hashSync(password, salt);
+
+    // const newUser = await usersModel.create({ email, password: hasedPw });
+    //=========================
+
     res.status(201).json({
       status: "success",
       code: 201,
