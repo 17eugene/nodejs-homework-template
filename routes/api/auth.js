@@ -13,4 +13,6 @@ router.post("/signin", validation(authSchema), ctrls.signinCtrl);
 
 router.get("/signout", authenticate, ctrls.signoutCtrl);
 
+router.get("/current", authenticate, ctrls.getCurrentCtrl);
+
 module.exports = router;
