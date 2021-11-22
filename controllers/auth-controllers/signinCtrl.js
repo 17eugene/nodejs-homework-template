@@ -20,6 +20,7 @@ const signinCtrl = async (req, res, next) => {
     };
 
     const token = jwt.sign(payload, SECRET_KEY);
+    await usersModel.findByIdAndUpdate(user._id, { token });
 
     res.status(200).json({
       status: "success",

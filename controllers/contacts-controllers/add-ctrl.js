@@ -2,7 +2,8 @@ const { contactsModel } = require("../../model/index");
 
 const addContactCtrl = async (req, res, next) => {
   try {
-    const newContact = await contactsModel.create(req.body);
+    const contact = { ...req.body, owner: req.user._id };
+    const newContact = await contactsModel.create(contact);
     res.status(201).json({
       status: "success",
       code: 201,

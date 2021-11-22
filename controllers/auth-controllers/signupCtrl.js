@@ -6,7 +6,7 @@ const signupCtrl = async (req, res, next) => {
     const user = await usersModel.findOne({ email });
 
     if (user) {
-      const error = new Error("User with email already exist");
+      const error = new Error("User already exist");
       error.status = 409;
       throw error;
     }

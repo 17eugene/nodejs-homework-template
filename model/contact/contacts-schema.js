@@ -22,10 +22,10 @@ const contactsSchema = Schema(
       default: false,
     },
 
-    // owner: {
-    //   type: SchemaTypes.ObjectId,
-    //   ref: "user",
-    // },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   { versionKey: false, timestamps: true }
 );
