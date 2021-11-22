@@ -11,7 +11,7 @@ const signinCtrl = async (req, res, next) => {
 
     if (!user || !user.comparePassword(password)) {
       const error = new Error("Incorrect email or password!");
-      error.status = 404;
+      error.status = 401;
       throw error;
     }
 
@@ -28,6 +28,10 @@ const signinCtrl = async (req, res, next) => {
       message: "Login success",
       data: {
         token,
+        user: {
+          email,
+          subscription: usersModel().subscription,
+        },
       },
     });
   } catch (error) {

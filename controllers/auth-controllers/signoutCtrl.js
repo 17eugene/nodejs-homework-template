@@ -1,9 +1,9 @@
 const { usersModel } = require("../../model/index");
 
-const signoutCtrl = (req, res, next) => {
+const signoutCtrl = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    usersModel.findByIdAndUpdate(_id, { token: null });
+    const user = await usersModel.findByIdAndUpdate(_id, { token: null });
 
     res.status(204).json();
   } catch (error) {

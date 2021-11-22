@@ -26,6 +26,10 @@ const signupCtrl = async (req, res, next) => {
       status: "success",
       code: 201,
       message: "Register success",
+      data: {
+        email,
+        subscription: usersModel().subscription,
+      },
     });
   } catch (error) {
     next(error);
