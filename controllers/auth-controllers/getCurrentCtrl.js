@@ -1,5 +1,3 @@
-const { usersModel } = require("../../model/index");
-
 const getCurrentCtrl = async (req, res, next) => {
   try {
     const { _id, email, subscription } = req.user;
