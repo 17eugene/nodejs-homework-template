@@ -7,7 +7,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const authenticate = async (req, res, next) => {
   try {
     if (!req.headers.authorization) {
-      const error = new Error("Bad request");
+      const error = new Error("Signature not exist");
       error.status = 400;
       throw error;
     }
@@ -17,7 +17,7 @@ const authenticate = async (req, res, next) => {
     if (bearer !== "Bearer") {
       const bearerError = new Error("Unauthorized");
       bearerError.status = 401;
-      next(bearer);
+      next(bearerError);
     }
 
     try {
