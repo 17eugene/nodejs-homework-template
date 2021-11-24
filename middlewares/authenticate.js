@@ -6,12 +6,18 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 const authenticate = async (req, res, next) => {
   try {
+    if (!req.headers.authorization) {
+      const error = new Error("Bad request");
+      error.status = 400;
+      throw error;
+    }
+
     const [bearer, token] = req.headers.authorization.split(" ");
 
     if (bearer !== "Bearer") {
       const bearerError = new Error("Unauthorized");
       bearerError.status = 401;
-      throw bearerError;
+      next(bearer);
     }
 
     try {
@@ -21,7 +27,7 @@ const authenticate = async (req, res, next) => {
       if (!user) {
         const userError = new Error("User not found");
         userError.status = 404;
-        throw userError;
+        next(userError);
       }
 
       if (!user.token) {
@@ -38,7 +44,7 @@ const authenticate = async (req, res, next) => {
       throw tokenError;
     }
   } catch (error) {
-    next();
+    next(error);
   }
 };
 
