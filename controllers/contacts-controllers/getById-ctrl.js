@@ -4,7 +4,6 @@ const getByIdCtrl = async (req, res, next) => {
   try {
     const id = req.params.contactId;
     const userId = req.user._id;
-    console.log(userId);
 
     const contact = await contactsModel.findOne({
       _id: id,
