@@ -3,13 +3,21 @@ const { contactsModel } = require("../../model/index");
 const updateStatusCtrl = async (req, res, next) => {
   try {
     const id = req.params.contactId;
+    const userId = req.user._id;
 
-    const updatedContact = await contactsModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    const updatedContact = await contactsModel.findOneAndUpdate(
+      {
+        _id: id,
+        owner: userId,
+      },
+      req.body,
+      {
+        new: true,
+      }
+    );
 
     if (!updatedContact) {
-      const error = new Error("missing field 'favorite'");
+      const error = new Error("Not found");
       error.status = 404;
       throw error;
     }
