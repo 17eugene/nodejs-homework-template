@@ -1,4 +1,4 @@
-const getCurrentCtrl = (req, res, next) => {
+const getCurrentCtrl = (req, res) => {
   const { _id, email, subscription } = req.user;
 
   res.status(200).json({

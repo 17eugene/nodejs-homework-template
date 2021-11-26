@@ -7,7 +7,7 @@ const getAllCtrl = async (req, res, next) => {
     page = Number(page);
     limit = Number(limit);
 
-    if (Number.isNaN(page) || Number.isNaN(limit)) {
+    if (isNaN(page) || isNaN(limit)) {
       const requestError = new Error("Bad request");
       requestError.status = 400;
       throw requestError;
