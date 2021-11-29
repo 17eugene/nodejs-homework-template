@@ -9,7 +9,6 @@ const {
 const { authSchema } = require("../../validation-schemas/index");
 
 const ctrls = require("../../controllers/auth-controllers/index");
-const { avatarUpload } = require("../../middlewares/uploadAvatar");
 
 router.post("/signup", validation(authSchema), ctrls.signupCtrl);
 
