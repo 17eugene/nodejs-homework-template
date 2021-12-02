@@ -1,9 +1,16 @@
+const gravatar = require("gravatar");
+
+const fs = require("fs/promises");
+const path = require("path");
+
 const { usersModel } = require("../../model/index");
 
 const signupCtrl = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await usersModel.findOne({ email });
+    const avatar = gravatar.url(email, { protocol: "http" });
+    const avatarsFolder = path.join(__dirname, "../../", "public/avatars");
 
     if (user) {
       const error = new Error("User already exist");
@@ -11,7 +18,7 @@ const signupCtrl = async (req, res, next) => {
       throw error;
     }
 
-    const newUser = new usersModel({ email });
+    const newUser = new usersModel({ email, avatarURL: avatar });
     newUser.setPassword(password);
     newUser.save();
 
@@ -21,6 +28,9 @@ const signupCtrl = async (req, res, next) => {
 
     // const newUser = await usersModel.create({ email, password: hasedPw });
     //=========================
+
+    const singleAvatarFolder = path.join(avatarsFolder, String(newUser._id));
+    fs.mkdir(singleAvatarFolder);
 
     res.status(201).json({
       status: "success",
