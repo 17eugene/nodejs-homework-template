@@ -8,16 +8,16 @@ const Jimp = require("jimp");
 const avatarsFolder = path.join(__dirname, "../../", "public/avatars");
 
 const updateAvatarCtrl = async (req, res, next) => {
+  if (!req.file) {
+    const mediaError = new Error("Unsupported file");
+    mediaError.status = 415;
+    return next(mediaError);
+  }
+
   const { path: tempDir, originalname } = req.file;
   const { _id, email } = req.user;
 
   try {
-    if (!req.file) {
-      const mediaError = new Error("Bad request");
-      mediaError.status = 400;
-      return next(mediaError);
-    }
-
     const avatarFileName = `${_id}_${originalname}`;
     const resultUpload = path.join(avatarsFolder, String(_id), avatarFileName);
     await fs.rename(tempDir, resultUpload);
