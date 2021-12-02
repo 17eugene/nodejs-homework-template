@@ -29,7 +29,6 @@ const uploadAvatar = multer({
     ) {
       cb(null, false);
     } else {
-      console.log(file.mimetype);
       cb(null, true);
     }
   },
