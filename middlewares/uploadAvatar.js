@@ -21,6 +21,18 @@ const uploadConfig = multer.diskStorage({
 
 const uploadAvatar = multer({
   storage: uploadConfig,
+  fileFilter: function (req, file, cb) {
+    if (
+      file.mimetype !== "image/png" &&
+      file.mimetype !== "image/jpg" &&
+      file.mimetype !== "image/jpeg"
+    ) {
+      cb(null, false);
+    } else {
+      console.log(file.mimetype);
+      cb(null, true);
+    }
+  },
 });
 
 module.exports = {
