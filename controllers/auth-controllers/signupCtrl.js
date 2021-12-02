@@ -9,7 +9,7 @@ const signupCtrl = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await usersModel.findOne({ email });
-    const avatar = gravatar.url(email);
+    const avatar = gravatar.url(email, { protocol: "http" });
     const avatarsFolder = path.join(__dirname, "../../", "public/avatars");
 
     if (user) {
