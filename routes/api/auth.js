@@ -18,6 +18,10 @@ router.get("/signout", authenticate, ctrls.signoutCtrl);
 
 router.get("/current", authenticate, ctrls.getCurrentCtrl);
 
+router.post("/verify", ctrls.resendingCtrl);
+
+router.get("/verify/:verificationToken", ctrls.verificationCtrl);
+
 router.patch(
   "/avatars",
   authenticate,
