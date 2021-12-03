@@ -22,7 +22,7 @@ const resendingCtrl = async (req, res, next) => {
     const resendMail = {
       to: "email",
       subject: "Email confirmation",
-      html: `<a href="http://localhost:3000/api/auth/verify/${user.verificationToken}"></a>`,
+      html: `<a href="http://localhost:3000/api/auth/verify/${user.verificationToken}">Click here to comfirm email</a>`,
     };
 
     await sgMail.send(resendMail);
