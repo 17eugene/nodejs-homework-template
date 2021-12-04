@@ -28,7 +28,7 @@ const signupCtrl = async (req, res, next) => {
       verificationToken,
     });
     newUser.setPassword(password);
-    newUser.save();
+    await newUser.save();
 
     const mail = {
       to: email,
