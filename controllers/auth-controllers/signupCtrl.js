@@ -1,9 +1,11 @@
 const gravatar = require("gravatar");
+const { nanoid } = require("nanoid");
 
 const fs = require("fs/promises");
 const path = require("path");
 
 const { usersModel } = require("../../model/index");
+const { sendMail } = require("../../utils/index");
 
 const signupCtrl = async (req, res, next) => {
   try {
@@ -18,9 +20,23 @@ const signupCtrl = async (req, res, next) => {
       throw error;
     }
 
-    const newUser = new usersModel({ email, avatarURL: avatar });
+    const verificationToken = nanoid();
+
+    const newUser = new usersModel({
+      email,
+      avatarURL: avatar,
+      verificationToken,
+    });
     newUser.setPassword(password);
-    newUser.save();
+    await newUser.save();
+
+    const mail = {
+      to: email,
+      subject: "Confirm email",
+      html: `<a href="http://localhost3000/api/auth/verify/${verificationToken}">Click here to confirm</a>`,
+    };
+
+    await sendMail(mail);
 
     //===================2ой вариант сохранения
     // const salt = bcrypt.genSaltSync(10);

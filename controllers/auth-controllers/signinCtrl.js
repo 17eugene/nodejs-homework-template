@@ -15,6 +15,12 @@ const signinCtrl = async (req, res, next) => {
       throw error;
     }
 
+    if (!user.verify) {
+      const verifyError = new Error("Confirm your email");
+      verifyError.status = 401;
+      throw verifyError;
+    }
+
     const payload = {
       id: user._id,
     };
